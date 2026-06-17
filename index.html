@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adult SEO — Organic Traffic for Adult Websites</title>
+  <meta name="description" content="Specialized SEO for adult websites. Tubes, cams, dating, premium content, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #ffffff;
+      --bg2:     #f7f7fa;
+      --accent:  #7c3aed;
+      --accent2: #6d28d9;
+      --accent-l:#ede9fe;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --muted2:  #94a3b8;
+      --border:  #e2e8f0;
+      --shadow:  0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+      --shadow2: 0 2px 6px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.08);
+      --r:       16px;
+      --r2:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.25rem, 5vw, 3.5rem);
+      height: 62px;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .logo-dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg2); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+
+    .btn-outline {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      padding: 0.45rem 1.1rem;
+      border-radius: 10px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--accent); background: var(--accent-l); color: var(--accent2); }
+
+    .btn-solid {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      padding: 0.5rem 1.15rem;
+      border-radius: 10px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-solid:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 62px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      flex-direction: column;
+      gap: 0.25rem;
+      z-index: 99;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+    }
+    .mobile-nav a:hover { background: var(--bg2); }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 2rem);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center;
+      padding: clamp(80px, 10vw, 120px) clamp(1.25rem, 5vw, 2rem) clamp(60px, 8vw, 100px);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-l);
+      color: var(--accent2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-badge span { font-size: 0.6rem; }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6.5vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -2.5px;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-ctas .btn-solid {
+      font-size: 1rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--r2);
+      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+    }
+    .hero-ctas .btn-outline {
+      font-size: 1rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--r2);
+    }
+
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .stars { color: #f59e0b; letter-spacing: 1px; }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .stats-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .st-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .st-num sup { font-size: 1rem; vertical-align: super; color: var(--accent); }
+
+    .st-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      padding: clamp(70px, 8vw, 100px) clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-kicker::before,
+    .section-kicker::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.35;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      line-height: 1.1;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .step-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .step-card:hover {
+      box-shadow: var(--shadow2);
+      transform: translateY(-3px);
+    }
+
+    .step-num-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--accent-l);
+      color: var(--accent2);
+      font-size: 0.85rem;
+      font-weight: 800;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .step-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .step-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── SERVICES ─── */
+    .bg-alt { background: var(--bg2); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .svc-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .svc-card:hover {
+      box-shadow: var(--shadow2);
+      transform: translateY(-2px);
+      border-color: #d8b4fe;
+    }
+
+    .svc-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-l);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: var(--accent2);
+    }
+    .svc-icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.75; }
+
+    .svc-card h3 {
+      font-size: 0.975rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .svc-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── RESULTS ─── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .result-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+
+    .result-tag {
+      display: inline-block;
+      background: var(--accent-l);
+      color: var(--accent2);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .result-num {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .result-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .result-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .testi-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .testi-stars { color: #f59e0b; font-size: 0.85rem; letter-spacing: 2px; }
+
+    .testi-quote {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+      flex: 1;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--accent), #a78bfa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-name { font-size: 0.875rem; font-weight: 600; }
+    .author-role { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── PRICING ─── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .price-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .price-card.popular {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.12), var(--shadow2);
+      transform: scale(1.03);
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.9rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .price-tier {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-amount {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .price-amount sup { font-size: 1.3rem; vertical-align: super; color: var(--muted); font-weight: 600; }
+    .price-per { font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; margin-bottom: 1rem; }
+
+    .price-divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+    .price-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+      margin-bottom: 1.75rem;
+    }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .price-btn {
+      display: block;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: var(--r2);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent2);
+      transition: background 0.15s, color 0.15s;
+    }
+    .price-btn:hover { background: var(--accent); color: #fff; }
+    .price-card.popular .price-btn { background: var(--accent); color: #fff; }
+    .price-card.popular .price-btn:hover { background: var(--accent2); }
+
+    /* ─── FAQ ─── */
+    .faq-wrap {
+      max-width: 640px;
+      margin: 3rem auto 0;
+    }
+
+    details {
+      border-bottom: 1px solid var(--border);
+    }
+    details:first-child { border-top: 1px solid var(--border); }
+
+    summary {
+      padding: 1.25rem 0;
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      font-weight: 400;
+      line-height: 1;
+    }
+    details[open] summary::after { content: '−'; color: var(--accent); }
+    details[open] summary { color: var(--accent); }
+
+    .faq-ans {
+      padding: 0 0 1.25rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      padding: clamp(60px, 8vw, 90px) clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .cta-box {
+      background: var(--accent);
+      border-radius: 24px;
+      padding: clamp(3rem, 6vw, 5rem) 2rem;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 250px; height: 250px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .cta-box h2 {
+      color: #fff;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+
+    .cta-box p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.05rem;
+      margin: 0 auto 2rem;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .cta-btn-white {
+      background: #fff;
+      color: var(--accent2);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--r2);
+      transition: background 0.15s, transform 0.1s;
+    }
+    .cta-btn-white:hover { background: #f5f3ff; transform: translateY(-1px); }
+
+    .cta-btn-outline-white {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--r2);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      transition: background 0.15s;
+    }
+    .cta-btn-outline-white:hover { background: rgba(255,255,255,0.2); }
+
+    /* ─── CONTACT ─── */
+    .contact-wrap {
+      max-width: 540px;
+      margin: 3rem auto 0;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 2.5rem;
+      box-shadow: var(--shadow2);
+    }
+
+    form { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted2); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+    }
+    select { cursor: pointer; }
+    textarea { resize: vertical; min-height: 110px; }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 0.25rem;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 4px 16px rgba(124,58,237,0.3);
+    }
+    .submit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem clamp(1.25rem, 5vw, 3.5rem) 2rem;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand .logo { font-size: 1rem; margin-bottom: 0.75rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; max-width: 220px; }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul a { font-size: 0.875rem; color: var(--muted); transition: color 0.15s; }
+    .footer-col ul a:hover { color: var(--text); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 1.75rem;
+      font-size: 0.8rem;
+      color: var(--muted2);
+    }
+    .footer-bottom a { color: var(--muted2); transition: color 0.15s; }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .services-grid,
+      .results-grid,
+      .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .price-card.popular { transform: none; }
+      .steps-row { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-right { display: none; }
+      .hamburger { display: flex; }
+      .services-grid,
+      .results-grid,
+      .testi-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>
+    Adult SEO
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#contact" class="btn-outline">Book a call</a>
+    <a href="#contact" class="btn-solid">Free audit</a>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#results" onclick="closeNav()">Results</a>
+  <a href="#pricing" onclick="closeNav()">Pricing</a>
+  <a href="#faq" onclick="closeNav()">FAQ</a>
+  <a href="#contact" onclick="closeNav()">Free audit</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span>●</span> Specialized for the adult niche</div>
+  <h1>SEO that grows adult websites.</h1>
+  <p class="hero-sub">Organic traffic for tubes, cams, dating, and premium content — from an agency that actually understands your niche.</p>
+  <div class="hero-ctas">
+    <a href="#contact" class="btn-solid">Get free audit →</a>
+    <a href="#results" class="btn-outline">See our results</a>
+  </div>
+  <div class="hero-proof">
+    <span class="stars">★★★★★</span>
+    <span>Trusted by 500+ adult websites worldwide</span>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div>
+      <div class="st-num">500<sup>+</sup></div>
+      <div class="st-label">Sites optimized</div>
+    </div>
+    <div>
+      <div class="st-num">2.8<sup>B</sup></div>
+      <div class="st-label">Organic visits generated</div>
+    </div>
+    <div>
+      <div class="st-num">340<sup>%</sup></div>
+      <div class="st-label">Average traffic growth</div>
+    </div>
+    <div>
+      <div class="st-num">8<sup>+</sup></div>
+      <div class="st-label">Years in adult SEO</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <div class="section-kicker">How it works</div>
+    <h2>Simple process. Real results.</h2>
+    <p class="section-desc">Three steps from first contact to compounding organic growth.</p>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num-badge">01</div>
+        <h3>Audit & Discover</h3>
+        <p>We analyze your site's technical health, keyword gaps, backlink profile, and competitors.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num-badge">02</div>
+        <h3>Build the Roadmap</h3>
+        <p>You receive a prioritized 90-day action plan with clear milestones and projected outcomes.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num-badge">03</div>
+        <h3>Execute & Scale</h3>
+        <p>We handle everything — on-page, content, links — while traffic climbs month over month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section bg-alt" id="services">
+  <div class="container">
+    <div class="section-kicker">Services</div>
+    <h2>Every adult vertical. One agency.</h2>
+    <p class="section-desc">We specialize where mainstream agencies won't go.</p>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="film"></i></div>
+        <h3>Tube Site Optimization</h3>
+        <p>Crawl budget, video schema, and content architecture for high-volume platforms.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="camera"></i></div>
+        <h3>Webcam Platform SEO</h3>
+        <p>Model page SEO and geo-targeted landing pages for cam sites.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="heart"></i></div>
+        <h3>Adult Dating SEO</h3>
+        <p>Geo-targeted keyword strategies that turn searchers into sign-ups.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="lock"></i></div>
+        <h3>Premium Content Platforms</h3>
+        <p>Organic subscriber growth for OnlyFans-style and subscription sites.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="bot"></i></div>
+        <h3>AI NSFW Platforms</h3>
+        <p>Organic growth strategies for AI-generated adult content platforms and NSFW AI tools.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><i data-lucide="search"></i></div>
+        <h3>Technical SEO Audits</h3>
+        <p>Core Web Vitals, indexation, architecture, and crawlability — diagnosed and fixed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-kicker">Case studies</div>
+    <h2>Numbers from real campaigns.</h2>
+    <p class="section-desc">Anonymized. Real clients. No fabricated screenshots.</p>
+    <div class="results-grid">
+      <div class="result-card">
+        <span class="result-tag">Tube Site</span>
+        <div class="result-num">+420%</div>
+        <h3>Organic traffic in 9 months</h3>
+        <p>180K → 940K/mo via content architecture overhaul and crawl budget optimization.</p>
+      </div>
+      <div class="result-card">
+        <span class="result-tag">Webcam Platform</span>
+        <div class="result-num">+280%</div>
+        <h3>Organic traffic in 6 months</h3>
+        <p>Model page SEO and geo landing pages drove a 280% surge in high-intent visitors.</p>
+      </div>
+      <div class="result-card">
+        <span class="result-tag">Adult Dating</span>
+        <div class="result-num">+650%</div>
+        <h3>First-page keywords in 12 mo.</h3>
+        <p>Zero to 3,200 first-page rankings through niche link building and content.</p>
+      </div>
+      <div class="result-card">
+        <span class="result-tag">Premium Content</span>
+        <div class="result-num">+190%</div>
+        <h3>Subscriber acquisition in 5 mo.</h3>
+        <p>Organic search grew from 8% to 38% of all new subscriber sign-ups.</p>
+      </div>
+      <div class="result-card">
+        <span class="result-tag">Adult Blog Network</span>
+        <div class="result-num">+510%</div>
+        <h3>Organic revenue in 8 months</h3>
+        <p>Topical authority building turned a stagnant blog into a revenue machine.</p>
+      </div>
+      <div class="result-card">
+        <span class="result-tag">Escort Directory</span>
+        <div class="result-num">+320%</div>
+        <h3>Local organic traffic in 7 mo.</h3>
+        <p>City-level pages and schema markup drove 320% more geo-targeted visits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-kicker">Testimonials</div>
+    <h2>What our clients say.</h2>
+    <p class="section-desc">We let results speak first — but here's what the people behind them think.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"We went from being invisible on Google to ranking for thousands of keywords in under a year. They actually understand how adult search works."</p>
+        <div class="testi-author">
+          <div class="avatar">M</div>
+          <div>
+            <div class="author-name">Mark T.</div>
+            <div class="author-role">Owner, Adult Tube Network</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Every mainstream agency turned us away. Adult SEO delivered more in 3 months than we'd achieved in 3 years. Transparent, no fluff."</p>
+        <div class="testi-author">
+          <div class="avatar">S</div>
+          <div>
+            <div class="author-name">Sandra K.</div>
+            <div class="author-role">CMO, Cam Platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The link building alone was worth it. Links I could never get on my own. Traffic grew 4x in 6 months and kept climbing after the contract ended."</p>
+        <div class="testi-author">
+          <div class="avatar">J</div>
+          <div>
+            <div class="author-name">James R.</div>
+            <div class="author-role">Founder, Dating Site</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-kicker">Pricing</div>
+    <h2>Transparent plans. No surprises.</h2>
+    <p class="section-desc">Month-to-month. Cancel anytime. Results guaranteed or we work for free.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount"><sup>$</sup>2,500</div>
+        <div class="price-per">per month</div>
+        <hr class="price-divider" />
+        <p class="price-desc">For new or small adult sites building organic foundations.</p>
+        <ul class="price-features">
+          <li>Full technical SEO audit</li>
+          <li>On-page optimization (30 pages)</li>
+          <li>10 niche backlinks/month</li>
+          <li>Monthly reporting & calls</li>
+          <li>200 keyword tracking</li>
+        </ul>
+        <a href="#contact" class="price-btn">Get started</a>
+      </div>
+      <div class="price-card popular">
+        <span class="popular-tag">Most Popular</span>
+        <div class="price-tier">Growth</div>
+        <div class="price-amount"><sup>$</sup>5,000</div>
+        <div class="price-per">per month</div>
+        <hr class="price-divider" />
+        <p class="price-desc">For established sites ready to scale traffic aggressively.</p>
+        <ul class="price-features">
+          <li>Everything in Starter</li>
+          <li>Unlimited on-page optimization</li>
+          <li>25 niche backlinks/month</li>
+          <li>Content strategy & production</li>
+          <li>Competitor gap analysis</li>
+          <li>1,000 keyword tracking</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="#contact" class="price-btn">Get started</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-amount" style="font-size:2rem;letter-spacing:-1px">Custom</div>
+        <div class="price-per">tailored to your scale</div>
+        <hr class="price-divider" />
+        <p class="price-desc">For large platforms, networks, and brands at scale.</p>
+        <ul class="price-features">
+          <li>Everything in Growth</li>
+          <li>Unlimited backlinks/month</li>
+          <li>Multi-site management</li>
+          <li>Dedicated content team</li>
+          <li>Weekly strategy calls</li>
+          <li>Custom dashboards & SLA</li>
+        </ul>
+        <a href="#contact" class="price-btn">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section bg-alt" id="faq">
+  <div class="container">
+    <div class="section-kicker">FAQ</div>
+    <h2>Questions we always get.</h2>
+    <p class="section-desc">Still unsure? Book a free call — we'll answer everything.</p>
+    <div class="faq-wrap">
+      <details open>
+        <summary>Do you work with all types of adult sites?</summary>
+        <div class="faq-ans">Yes — tubes, cam platforms, adult dating, escort directories, premium content, sex toy e-commerce, and more. If it's adult niche, we've done it.</div>
+      </details>
+      <details>
+        <summary>Is my identity and website kept confidential?</summary>
+        <div class="faq-ans">Completely. We never disclose client names, domains, or campaign details without explicit written permission. Discretion is non-negotiable.</div>
+      </details>
+      <details>
+        <summary>How long does it take to see results?</summary>
+        <div class="faq-ans">Most clients see measurable movement within 60–90 days. Significant traffic growth typically shows at 4–6 months, compounding beyond that.</div>
+      </details>
+      <details>
+        <summary>White-hat or black-hat?</summary>
+        <div class="faq-ans">100% white-hat. All links are manual outreach to real sites. All on-page work follows current Google guidelines. We build sustainable rankings that survive algorithm updates.</div>
+      </details>
+      <details>
+        <summary>Why is adult SEO different from regular SEO?</summary>
+        <div class="faq-ans">Adult sites face advertiser bans, limited tool access, and unique search behavior. It requires specialized link sources and niche knowledge that generic agencies simply don't have.</div>
+      </details>
+      <details>
+        <summary>Is there a minimum contract?</summary>
+        <div class="faq-ans">No contracts. Month-to-month only. We recommend at least 3 months to fairly evaluate compounding SEO performance.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>Ready to grow your organic traffic?</h2>
+    <p>Get a free SEO audit of your adult website. We'll find the gaps and tell you exactly what to fix.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="cta-btn-white">Get free audit →</a>
+      <a href="#contact" class="cta-btn-outline-white">Book a call</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-kicker">Contact</div>
+    <h2>Let's talk about your website.</h2>
+    <p class="section-desc">Fill out the form and we'll come back with a free audit and honest assessment.</p>
+    <div class="contact-wrap">
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input type="text" placeholder="Your name" required />
+          <input type="email" placeholder="Email address" required />
+        </div>
+        <input type="url" placeholder="Website URL (e.g. https://yoursite.com)" />
+        <select>
+          <option value="" disabled selected>Type of site</option>
+          <option>Tube Site</option>
+          <option>Webcam Platform</option>
+          <option>Adult Dating</option>
+          <option>Premium Content / OnlyFans-style</option>
+          <option>Escort / Adult Directory</option>
+          <option>AI NSFW Platform</option>
+          <option>Sex Toy E-commerce</option>
+          <option>Adult Blog / Affiliate</option>
+          <option>Other</option>
+        </select>
+        <textarea placeholder="Tell us about your current traffic, goals, or challenges..."></textarea>
+        <button type="submit" class="submit-btn">Request free SEO audit →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo"><span class="logo-dot"></span> Adult SEO</a>
+        <p>Specialized SEO for adult websites. Growing organic traffic where mainstream agencies won't go.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Tube Site SEO</a></li>
+          <li><a href="#services">Webcam SEO</a></li>
+          <li><a href="#services">Adult Dating SEO</a></li>
+          <li><a href="#services">Link Building</a></li>
+          <li><a href="#services">Technical Audits</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#results">Case Studies</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Adult SEO. All rights reserved.</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.toggle('open');
+  });
+  function closeNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = "Sent! We'll be in touch soon.";
+    btn.style.background = '#16a34a';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
