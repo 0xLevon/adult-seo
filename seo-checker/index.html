@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SEO Validator — Age Gate Bypass</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d10;
+    --surface: #16161a;
+    --surface2: #1e1e24;
+    --border: #2a2a35;
+    --accent: #7c6af7;
+    --accent2: #4fc8a4;
+    --warn: #f5a623;
+    --error: #f25f5c;
+    --pass: #4fc8a4;
+    --text: #e8e8f0;
+    --text-dim: #7a7a90;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 640px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,106,247,0.12);
+    border: 1px solid rgba(124,106,247,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #e8e8f0 0%, #7c6af7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Input area */
+  .input-card {
+    width: 100%;
+    max-width: 720px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  .url-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .url-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: var(--mono);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .url-input:focus { border-color: var(--accent); }
+  .url-input::placeholder { color: var(--text-dim); }
+  .btn-scan {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-scan:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+  .btn-scan:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Options row */
+  .options-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+    cursor: pointer;
+    user-select: none;
+  }
+  .option-label input[type=checkbox] { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
+
+  /* Progress */
+  .progress-wrap {
+    width: 100%;
+    max-width: 720px;
+    display: none;
+    margin-bottom: 24px;
+  }
+  .progress-wrap.visible { display: block; }
+  .progress-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    transition: color 0.3s;
+  }
+  .step.active { color: var(--text); }
+  .step.done { color: var(--pass); }
+  .step.error { color: var(--error); }
+  .step-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .step.active .step-icon { border-color: var(--accent); animation: spin 1s linear infinite; }
+  .step.done .step-icon { border-color: var(--pass); background: var(--pass); color: #000; }
+  .step.error .step-icon { border-color: var(--error); background: var(--error); color: #fff; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Results */
+  .results {
+    width: 100%;
+    max-width: 720px;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .results.visible { display: flex; }
+
+  /* Score card */
+  .score-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .score-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 26px; font-weight: 700;
+    border: 3px solid;
+  }
+  .score-circle.good { border-color: var(--pass); color: var(--pass); }
+  .score-circle.warn { border-color: var(--warn); color: var(--warn); }
+  .score-circle.bad { border-color: var(--error); color: var(--error); }
+  .score-info h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .score-info p { font-size: 13px; color: var(--text-dim); }
+  .bypass-tag {
+    margin-left: auto;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .bypass-tag.bypassed { background: rgba(79,200,164,0.15); color: var(--pass); border: 1px solid rgba(79,200,164,0.3); }
+  .bypass-tag.no-gate { background: rgba(122,122,144,0.15); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* Check groups */
+  .checks-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .section-title {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: var(--surface2); }
+  .check-status {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-status.pass { background: rgba(79,200,164,0.15); color: var(--pass); border: 1px solid rgba(79,200,164,0.3); }
+  .check-status.fail { background: rgba(242,95,92,0.15); color: var(--error); border: 1px solid rgba(242,95,92,0.3); }
+  .check-status.warn { background: rgba(245,166,35,0.15); color: var(--warn); border: 1px solid rgba(245,166,35,0.3); }
+  .check-status.info { background: rgba(124,106,247,0.12); color: var(--accent); border: 1px solid rgba(124,106,247,0.3); }
+  .check-body { flex: 1; min-width: 0; }
+  .check-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .check-detail { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .check-value {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 6px;
+    word-break: break-all;
+    color: var(--accent2);
+    display: block;
+  }
+
+  /* AI summary */
+  .ai-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .ai-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .ai-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .ai-body p { margin-bottom: 10px; }
+  .ai-body p:last-child { margin-bottom: 0; }
+
+  /* Error card */
+  .error-card {
+    background: rgba(242,95,92,0.08);
+    border: 1px solid rgba(242,95,92,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--error);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="badge"><span class="badge-dot"></span> SEO Validator</div>
+  <h1>Validate SEO Through Any Age Gate</h1>
+  <p class="subtitle">Paste a URL — we'll bypass the age verification, render the full page, and check what search engines actually see.</p>
+</header>
+
+<div class="input-card">
+  <div class="url-row">
+    <input class="url-input" id="urlInput" type="url" placeholder="https://example.com/page" />
+    <button class="btn-scan" id="scanBtn" onclick="startScan()">Scan Page</button>
+  </div>
+  <div class="options-row">
+    <label class="option-label">
+      <input type="checkbox" id="optCookie" checked /> Pre-set age gate cookie
+    </label>
+    <label class="option-label">
+      <input type="checkbox" id="optClick" checked /> Simulate confirm click
+    </label>
+    <label class="option-label">
+      <input type="checkbox" id="optAI" checked /> AI analysis
+    </label>
+  </div>
+</div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-steps" id="progressSteps"></div>
+</div>
+
+<div class="results" id="results"></div>
+
+<footer>Built for SEO practitioners dealing with age-gated content · Checks H1, meta, canonicals, OG tags & more</footer>
+
+<script>
+const STEPS = [
+  { id: 'fetch',   label: 'Fetching raw HTML from server' },
+  { id: 'detect',  label: 'Detecting age gate patterns' },
+  { id: 'bypass',  label: 'Attempting age gate bypass' },
+  { id: 'parse',   label: 'Parsing SEO signals from rendered HTML' },
+  { id: 'ai',      label: 'Generating AI analysis' },
+];
+
+let stepEls = {};
+
+function renderSteps() {
+  const wrap = document.getElementById('progressSteps');
+  wrap.innerHTML = '';
+  stepEls = {};
+  STEPS.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'step';
+    el.id = 'step-' + s.id;
+    el.innerHTML = `<div class="step-icon" id="icon-${s.id}"></div><span>${s.label}</span>`;
+    wrap.appendChild(el);
+    stepEls[s.id] = el;
+  });
+}
+
+function setStep(id, state) {
+  const el = document.getElementById('step-' + id);
+  const icon = document.getElementById('icon-' + id);
+  if (!el) return;
+  el.className = 'step ' + state;
+  if (state === 'active') icon.innerHTML = '◌';
+  if (state === 'done') icon.innerHTML = '✓';
+  if (state === 'error') icon.innerHTML = '✕';
+}
+
+async function startScan() {
+  const url = document.getElementById('urlInput').value.trim();
+  if (!url) { alert('Please enter a URL'); return; }
+  try { new URL(url); } catch { alert('Please enter a valid URL'); return; }
+
+  const useAI = document.getElementById('optAI').checked;
+  const useCookie = document.getElementById('optCookie').checked;
+  const useClick = document.getElementById('optClick').checked;
+
+  const BACKEND_URL = 'https://seo-validator-backend-production.up.railway.app';
+
+  document.getElementById('scanBtn').disabled = true;
+  document.getElementById('results').className = 'results';
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('progressWrap').className = 'progress-wrap visible';
+  renderSteps();
+
+  try {
+    // All steps handled by backend — show progress while waiting
+    setStep('fetch', 'active');
+
+    let data;
+    try {
+      const res = await fetch(`${BACKEND_URL}/scan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, useCookie, useClick }),
+        signal: AbortSignal.timeout(60000),
+      });
+      data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Backend error');
+    } catch(e) {
+      setStep('fetch', 'error');
+      throw new Error(`Backend request failed: ${e.message}`);
+    }
+
+    // Animate through steps based on backend response
+    setStep('fetch', 'done');
+    await delay(200);
+    setStep('detect', data.gateInfo?.detected ? 'done' : 'done');
+    await delay(200);
+    setStep('bypass', data.bypassMethod !== 'none' ? 'done' : 'done');
+    await delay(200);
+    setStep('parse', 'done');
+    await delay(200);
+
+    const seoData = data.seo;
+    const gateInfo = data.gateInfo;
+    const bypassMethod = data.bypassMethod;
+
+    // Step 5: AI (still called from frontend using Anthropic API)
+    let aiAnalysis = null;
+    if (useAI) {
+      setStep('ai', 'active');
+      aiAnalysis = await getAIAnalysis(url, seoData, gateInfo);
+      setStep('ai', 'done');
+    } else {
+      setStep('ai', 'done');
+    }
+
+    renderResults(seoData, gateInfo, bypassMethod, aiAnalysis);
+
+  } catch(err) {
+    document.getElementById('results').className = 'results visible';
+    document.getElementById('results').innerHTML = `<div class="error-card">⚠ ${err.message}</div>`;
+  } finally {
+    document.getElementById('scanBtn').disabled = false;
+  }
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function detectAgeGate(html) {
+  const patterns = [
+    { name: 'Age verification modal', re: /age.{0,30}verif|verify.{0,20}age/i },
+    { name: 'Adult content gate', re: /18\+|must be (18|eighteen)|confirm.*older|over 18/i },
+    { name: 'AgeGateScreen component', re: /AgeGateScreen|age.gate|agegate/i },
+    { name: 'Cookie-based gate', re: /ageVerif|age_verified|adult_verified/i },
+    { name: 'LocalStorage gate', re: /localStorage.*age|age.*localStorage/i },
+  ];
+  const found = patterns.filter(p => p.re.test(html));
+  return { detected: found.length > 0, patterns: found.map(p => p.name) };
+}
+
+function stripAgeGateHtml(html) {
+  // Remove common age gate overlay divs — keep everything else
+  let out = html;
+  // Remove fixed overlay divs that contain age gate language
+  out = out.replace(/<div[^>]*class="[^"]*(?:age.gate|backdrop|overlay|fixed)[^"]*"[^>]*>[\s\S]*?(?=<div[^>]*class="[^"]*(?:header|main|nav|footer|content)[^"]*"|<\/body>)/i, '');
+  // Remove min-h-dvh full screen divs (common Next.js pattern)
+  out = out.replace(/<div[^>]*min-h-dvh[^>]*>[\s\S]*?<\/div>\s*(?=<section|<script)/i, '');
+  return out;
+}
+
+function parseSEO(html, pageUrl) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const get = sel => doc.querySelector(sel);
+  const getAll = sel => [...doc.querySelectorAll(sel)];
+  const getMeta = name => {
+    const el = get(`meta[name="${name}"], meta[property="${name}"]`);
+    return el ? (el.getAttribute('content') || '').trim() : null;
+  };
+
+  const h1s = getAll('h1').map(el => el.textContent.trim()).filter(Boolean);
+  const h2s = getAll('h2').map(el => el.textContent.trim()).filter(Boolean);
+  const title = doc.title;
+  const desc = getMeta('description');
+  const ogTitle = getMeta('og:title');
+  const ogDesc = getMeta('og:description');
+  const ogImage = getMeta('og:image');
+  const canonical = get('link[rel="canonical"]')?.href || null;
+  const robots = getMeta('robots');
+  const viewport = get('meta[name="viewport"]') ? true : false;
+  const lang = doc.documentElement.lang;
+  const imgs = getAll('img');
+  const imgsNoAlt = imgs.filter(img => !img.getAttribute('alt'));
+  const links = getAll('a[href]').length;
+  const schemaScripts = getAll('script[type="application/ld+json"]');
+  const schemas = schemaScripts.map(s => { try { return JSON.parse(s.textContent)['@type']; } catch { return null; } }).filter(Boolean);
+
+  let canonicalMatch = null;
+  if (canonical) {
+    try {
+      const base = new URL(pageUrl).origin + new URL(pageUrl).pathname;
+      const canPath = new URL(canonical).origin + new URL(canonical).pathname;
+      canonicalMatch = base === canPath;
+    } catch { canonicalMatch = null; }
+  }
+
+  return { h1s, h2s, title, desc, ogTitle, ogDesc, ogImage, canonical, canonicalMatch,
+           robots, viewport, lang, imgs: imgs.length, imgsNoAlt: imgsNoAlt.length,
+           links, schemas };
+}
+
+async function getAIAnalysis(url, seo, gate) {
+  const prompt = `You are an SEO expert. Analyze these SEO signals from a page and give a focused, actionable 3-paragraph report. Be specific, not generic.
+
+URL: ${url}
+Age gate detected: ${gate.detected ? 'Yes (' + gate.patterns.join(', ') + ')' : 'No'}
+
+SEO Data:
+- H1 tags (${seo.h1s.length}): ${seo.h1s.slice(0,3).join(' | ') || 'NONE'}
+- H2 tags (${seo.h2s.length} total)
+- Title: ${seo.title || 'MISSING'}
+- Meta description: ${seo.desc || 'MISSING'}
+- Canonical: ${seo.canonical || 'MISSING'}${seo.canonicalMatch === false ? ' (MISMATCH)' : ''}
+- OG Title: ${seo.ogTitle || 'MISSING'}
+- OG Description: ${seo.ogDesc || 'MISSING'}
+- OG Image: ${seo.ogImage ? 'Present' : 'MISSING'}
+- Robots: ${seo.robots || 'not set (defaults to index,follow)'}
+- Structured data types: ${seo.schemas.join(', ') || 'none'}
+- Images without alt: ${seo.imgsNoAlt} of ${seo.imgs}
+- Lang attribute: ${seo.lang || 'not set'}
+
+Give: (1) overall assessment, (2) top 2-3 specific issues to fix, (3) what's working well. Keep it under 200 words. Plain text, no markdown.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    return data.content?.[0]?.text || null;
+  } catch { return null; }
+}
+
+function score(seo) {
+  let s = 100;
+  if (!seo.h1s.length) s -= 20;
+  else if (seo.h1s.length > 1) s -= 8;
+  if (!seo.title) s -= 15;
+  if (!seo.desc) s -= 10;
+  if (!seo.canonical) s -= 8;
+  if (seo.canonicalMatch === false) s -= 10;
+  if (!seo.ogTitle) s -= 5;
+  if (!seo.ogImage) s -= 5;
+  if (!seo.lang) s -= 4;
+  if (seo.imgsNoAlt > 0) s -= Math.min(8, seo.imgsNoAlt * 2);
+  return Math.max(0, s);
+}
+
+function renderResults(seo, gate, bypassMethod, aiText) {
+  const s = score(seo);
+  const scoreClass = s >= 75 ? 'good' : s >= 50 ? 'warn' : 'bad';
+  const scoreLabel = s >= 75 ? 'Good' : s >= 50 ? 'Needs Work' : 'Poor';
+
+  const bypass = gate.detected;
+  const bypassTagHtml = bypass
+    ? `<span class="bypass-tag bypassed">⚡ Age Gate Bypassed</span>`
+    : `<span class="bypass-tag no-gate">No Gate Detected</span>`;
+
+  const checks = buildChecks(seo);
+  const checkHtml = checks.map(c => `
+    <div class="check-item">
+      <div class="check-status ${c.status}">${c.status === 'pass' ? '✓' : c.status === 'fail' ? '✕' : c.status === 'warn' ? '!' : 'i'}</div>
+      <div class="check-body">
+        <div class="check-name">${c.name}</div>
+        <div class="check-detail">${c.detail}</div>
+        ${c.value ? `<code class="check-value">${escHtml(c.value)}</code>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  const aiHtml = aiText ? `
+    <div class="ai-section">
+      <div class="ai-header">✦ AI Analysis</div>
+      <div class="ai-body">${aiText.split('\n\n').map(p => `<p>${escHtml(p)}</p>`).join('')}</div>
+    </div>
+  ` : '';
+
+  document.getElementById('results').innerHTML = `
+    <div class="score-card">
+      <div class="score-circle ${scoreClass}">${s}</div>
+      <div class="score-info">
+        <h2>SEO Score: ${scoreLabel}</h2>
+        <p>${checks.filter(c=>c.status==='fail').length} issues · ${checks.filter(c=>c.status==='warn').length} warnings · ${checks.filter(c=>c.status==='pass').length} passed</p>
+      </div>
+      ${bypassTagHtml}
+    </div>
+    <div class="checks-section">
+      <div class="section-title">SEO Checks</div>
+      ${checkHtml}
+    </div>
+    ${aiHtml}
+  `;
+  document.getElementById('results').className = 'results visible';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildChecks(seo) {
+  const c = [];
+
+  // H1
+  if (!seo.h1s.length) {
+    c.push({ name: 'H1 Tag', status: 'fail', detail: 'No H1 found after bypassing age gate. This is a critical SEO issue.', value: null });
+  } else if (seo.h1s.length > 1) {
+    c.push({ name: 'H1 Tag', status: 'warn', detail: `${seo.h1s.length} H1 tags found. Best practice is exactly one per page.`, value: seo.h1s[0] });
+  } else {
+    c.push({ name: 'H1 Tag', status: 'pass', detail: '1 H1 tag found.', value: seo.h1s[0] });
+  }
+
+  // Title
+  if (!seo.title) {
+    c.push({ name: 'Page Title', status: 'fail', detail: 'No title tag found.', value: null });
+  } else if (seo.title.length > 60) {
+    c.push({ name: 'Page Title', status: 'warn', detail: `Title is ${seo.title.length} chars — may be truncated in SERPs (ideal: 50–60).`, value: seo.title });
+  } else {
+    c.push({ name: 'Page Title', status: 'pass', detail: `${seo.title.length} characters.`, value: seo.title });
+  }
+
+  // Meta description
+  if (!seo.desc) {
+    c.push({ name: 'Meta Description', status: 'fail', detail: 'No meta description. Google may auto-generate one from page content.', value: null });
+  } else if (seo.desc.length > 160) {
+    c.push({ name: 'Meta Description', status: 'warn', detail: `${seo.desc.length} chars — truncated in SERPs (ideal: 120–160).`, value: seo.desc });
+  } else {
+    c.push({ name: 'Meta Description', status: 'pass', detail: `${seo.desc.length} characters.`, value: seo.desc });
+  }
+
+  // Canonical
+  if (!seo.canonical) {
+    c.push({ name: 'Canonical URL', status: 'warn', detail: 'No canonical tag. Duplicate content issues may arise.', value: null });
+  } else if (seo.canonicalMatch === false) {
+    c.push({ name: 'Canonical URL', status: 'warn', detail: 'Canonical URL does not match page URL exactly.', value: seo.canonical });
+  } else {
+    c.push({ name: 'Canonical URL', status: 'pass', detail: 'Canonical tag present and matches page URL.', value: seo.canonical });
+  }
+
+  // OG tags
+  if (!seo.ogTitle) {
+    c.push({ name: 'OG Title', status: 'warn', detail: 'No og:title. Social shares will fall back to page title.', value: null });
+  } else {
+    c.push({ name: 'OG Title', status: 'pass', detail: 'Open Graph title present.', value: seo.ogTitle });
+  }
+
+  if (!seo.ogImage) {
+    c.push({ name: 'OG Image', status: 'warn', detail: 'No og:image. Links shared on social will have no preview image.', value: null });
+  } else {
+    c.push({ name: 'OG Image', status: 'pass', detail: 'Open Graph image present.', value: seo.ogImage });
+  }
+
+  // Structured data
+  if (!seo.schemas.length) {
+    c.push({ name: 'Structured Data', status: 'info', detail: 'No JSON-LD schema found. Adding schema can enable rich results.', value: null });
+  } else {
+    c.push({ name: 'Structured Data', status: 'pass', detail: `Schema types detected: ${seo.schemas.join(', ')}`, value: null });
+  }
+
+  // H2s
+  if (!seo.h2s.length) {
+    c.push({ name: 'H2 Headings', status: 'warn', detail: 'No H2 tags. Content structure helps crawlers understand page hierarchy.', value: null });
+  } else {
+    c.push({ name: 'H2 Headings', status: 'pass', detail: `${seo.h2s.length} H2 headings found.`, value: seo.h2s[0] });
+  }
+
+  // Images
+  if (seo.imgsNoAlt > 0) {
+    c.push({ name: 'Image Alt Text', status: 'warn', detail: `${seo.imgsNoAlt} of ${seo.imgs} images missing alt attributes.`, value: null });
+  } else if (seo.imgs > 0) {
+    c.push({ name: 'Image Alt Text', status: 'pass', detail: `All ${seo.imgs} images have alt text.`, value: null });
+  }
+
+  // Lang
+  if (!seo.lang) {
+    c.push({ name: 'Language Attribute', status: 'warn', detail: 'No lang attribute on <html>. Important for international SEO.', value: null });
+  } else {
+    c.push({ name: 'Language Attribute', status: 'pass', detail: `Language set to "${seo.lang}".`, value: null });
+  }
+
+  // Robots
+  c.push({ name: 'Robots Meta', status: 'info', detail: seo.robots ? `Robots directive: ${seo.robots}` : 'No robots meta — defaults to index, follow.', value: seo.robots });
+
+  return c;
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.getElementById('urlInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startScan();
+});
+</script>
+</body>
+</html>
